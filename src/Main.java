@@ -6,60 +6,49 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-
-        System.out.println("We create heroes.");
-        System.out.print("Enter the warrior's name: ");
+        System.out.println("we create heroes");
+        System.out.print("enter the warrior's name: ");
         Hero warrior = HeroFactory.createHero("warrior", sc.nextLine());
-
-        System.out.print("Enter the magician's name: ");
+        System.out.print("enter the magicians name: ");
         Hero mage = HeroFactory.createHero("mage", sc.nextLine());
-
-
         LoggerObserver logger = new LoggerObserver();
         GameAnnouncer announcer = new GameAnnouncer();
-
         warrior.addObserver(logger);
         warrior.addObserver(announcer);
         mage.addObserver(logger);
         mage.addObserver(announcer);
-
-        // Стратегии по умолчанию
         warrior.setAttackStrategy(new MeleeAttack());
         mage.setAttackStrategy(new MagicAttack());
-
-        System.out.println("\n The fight begins! ");
-
+        System.out.println("\n the fight begins! ");
         while (warrior.isAlive() && mage.isAlive()) {
-            System.out.println("\nSelect action:");
-            System.out.println("1. Warrior attacks");
-            System.out.println("Mage attacks");
-            System.out.println("3. Change the warrior's strategy");
-            System.out.println("4. Change the magician's strategy");
-            System.out.print("Your choice:");
+            System.out.println("\n select action:");
+            System.out.println("1. warrior attacks");
+            System.out.println("2. mage attacks");
+            System.out.println("3. change the warrior's strategy");
+            System.out.println("4. change the magician's strategy");
+            System.out.print("your choice:");
             String choice = sc.nextLine();
 
             switch (choice) {
                 case "1" -> warrior.attack(mage);
                 case "2" -> mage.attack(warrior);
                 case "3" -> {
-                    System.out.print("Choose a strategy for the warrior (melee/magic/ranged): ");
+                    System.out.print("choose a strategy for the warrior (melee/magic/ranged): ");
                     String strat = sc.nextLine();
                     warrior.setAttackStrategy(getStrategy(strat));
                 }
                 case "4" -> {
-                    System.out.print("Choose a strategy for the mage (melee/magic/ranged): ");
+                    System.out.print("choose a strategy for the mage (melee/magic/ranged): ");
                     String strat = sc.nextLine();
                     mage.setAttackStrategy(getStrategy(strat));
                 }
-                default -> System.out.println("Wrong choice!");
+                default -> System.out.println("wrong choice");
             }
         }
-
-        System.out.println(" The fight is over ");
-        if (warrior.isAlive()) System.out.println(warrior.getName() + " won!");
-        else System.out.println(mage.getName() + " won!");
+        System.out.println(" the fight is over ");
+        if (warrior.isAlive()) System.out.println(warrior.getName() + " won");
+        else System.out.println(mage.getName() + " won");
     }
-
     private static AttackStrategy getStrategy(String strat) {
         return switch (strat.toLowerCase()) {
             case "melee" -> new MeleeAttack();

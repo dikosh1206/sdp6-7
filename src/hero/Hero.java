@@ -1,5 +1,4 @@
 package hero;
-
 import observer.HeroObserver;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,23 +16,23 @@ public abstract class Hero {
 
     public void setAttackStrategy(AttackStrategy strategy) {
         this.attackStrategy = strategy;
-        notifyObservers(name + " сменил стратегию атаки на " + strategy.getClass().getSimpleName());
+        notifyObservers(name + " changed the attack strategy to" + strategy.getClass().getSimpleName());
     }
 
     public void attack(Hero target) {
         if (attackStrategy != null && target.isAlive()) {
             attackStrategy.attack(this, target);
-            notifyObservers(name + " атаковал " + target.getName());
+            notifyObservers(name + " atacked" + target.getName());
         } else {
-            System.out.println(name + " не может атаковать.");
+            System.out.println(name + " cannot attack");
         }
     }
 
     public void takeDamage(int damage) {
         health -= damage;
-        notifyObservers(name + " получил " + damage + " урона. Осталось HP: " + health);
+        notifyObservers(name + " received " + damage + " damage HP remaining: " + health);
         if (health <= 0) {
-            notifyObservers(name + " погиб!");
+            notifyObservers(name + " died");
         }
     }
 

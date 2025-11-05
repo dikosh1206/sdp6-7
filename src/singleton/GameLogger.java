@@ -1,5 +1,4 @@
 package singleton;
-
 public class GameLogger {
     private static GameLogger instance;
 
@@ -13,6 +12,6 @@ public class GameLogger {
     }
 
     public void log(String message) {
-        System.out.println("[GAME LOG] " + message);
+        System.out.println("GAME LOG " + message);
     }
 }
