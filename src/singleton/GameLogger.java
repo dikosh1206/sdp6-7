@@ -10,7 +10,6 @@ public class GameLogger {
         }
         return instance;
     }
-
     public void log(String message) {
         System.out.println("GAME LOG " + message);
     }

@@ -13,12 +13,10 @@ public abstract class Hero {
         this.name = name;
         this.health = health;
     }
-
     public void setAttackStrategy(AttackStrategy strategy) {
         this.attackStrategy = strategy;
         notifyObservers(name + " changed the attack strategy to" + strategy.getClass().getSimpleName());
     }
-
     public void attack(Hero target) {
         if (attackStrategy != null && target.isAlive()) {
             attackStrategy.attack(this, target);
@@ -27,7 +25,6 @@ public abstract class Hero {
             System.out.println(name + " cannot attack");
         }
     }
-
     public void takeDamage(int damage) {
         health -= damage;
         notifyObservers(name + " received " + damage + " damage HP remaining: " + health);
@@ -35,11 +32,9 @@ public abstract class Hero {
             notifyObservers(name + " died");
         }
     }
-
     public void addObserver(HeroObserver observer) {
         observers.add(observer);
     }
-
     public void removeObserver(HeroObserver observer) {
         observers.remove(observer);
     }
@@ -49,7 +44,6 @@ public abstract class Hero {
             obs.update(event);
         }
     }
-
     public String getName() { return name; }
     public int getHealth() { return health; }
     public boolean isAlive() { return health > 0; }
